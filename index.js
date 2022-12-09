@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
-import { ChatGPTAPI } from 'chatgpt';
-import { Client, GatewayIntentBits, REST, Routes, Partials, ChannelType, SlashCommandBuilder } from 'discord.js';
-import OPENAI_SESSION from './openai_session.js';
-import CHATGPT from './commands/chatgpt.js';
+import { Client, GatewayIntentBits, REST, Routes, Partials } from 'discord.js';
+import CHATGPT from './commands/chatgpt/chatgpt.js';
 
 dotenv.config();
 

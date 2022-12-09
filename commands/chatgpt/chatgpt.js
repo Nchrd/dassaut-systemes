@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { ChatGPTAPI } from 'chatgpt';
-import OPENAI_SESSION from '../openai_session.js';
+import OPENAI_SESSION from './openai_session.js';
 
 dotenv.config();
 
