@@ -67,10 +67,10 @@ function askQuestion(question, cb,opts={}) {
   })
 }
 
-async function splitAndSendResponse(resp,user){
+async function splitAndSendResponse(resp,interaction){
   while(resp.length > 0){
       let end = Math.min(MAX_RESPONSE_CHUNK_LENGTH,resp.length);
-      await user.send(resp.slice(0,end));
+      await interaction.reply(resp.slice(0,end));
       resp = resp.slice(end,resp.length);
   }
 }
