@@ -70,7 +70,7 @@ async function main() {
             try {
                 CHATGPT.askQuestion(question, (content) => {
                     if(content.length >= MAX_RESPONSE_CHUNK_LENGTH){
-                        interaction.editReply({ content:"Ma réponse est trop grande, je réponds en DM." });
+                        interaction.editReply({ content:"Ceci devrait vous aider :" });
                         CHATGPT.splitAndSendResponse(content, interaction);
                     }else{
                         interaction.editReply("```Question posée : " + question + "```\n" + content);

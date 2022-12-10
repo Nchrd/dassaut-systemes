@@ -4,6 +4,8 @@ import OPENAI_SESSION from './openai_session.js';
 
 dotenv.config();
 
+const MAX_RESPONSE_CHUNK_LENGTH = 1500;
+
 const chatGTP = await initChatGPT().catch(e=>{
   console.error(e)
   process.exit()
@@ -57,7 +59,7 @@ async function initChatGPT() {
 function askQuestion(question, cb,opts={}) {
   let tmr = setTimeout(() => {
       cb("Oppss, something went wrong! (Timeout)");
-  }, 45000);
+  }, 150000);
 
   chatGTP.sendMessage(question,opts).then((response) => {
       clearTimeout(tmr);
@@ -70,7 +72,7 @@ function askQuestion(question, cb,opts={}) {
 async function splitAndSendResponse(resp,interaction){
   while(resp.length > 0){
       let end = Math.min(MAX_RESPONSE_CHUNK_LENGTH,resp.length);
-      await interaction.reply(resp.slice(0,end));
+      await interaction.channel.send(resp.slice(0,end));
       resp = resp.slice(end,resp.length);
   }
 }
