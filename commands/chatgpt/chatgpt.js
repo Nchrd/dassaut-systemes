@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from 'dotenv-safe';
 import { ChatGPTAPI } from 'chatgpt';
 import OPENAI_SESSION from './openai_session.js';
 
@@ -28,7 +28,11 @@ async function initChatGPT() {
       throw "Invalid Auth Info!";
   }
 
-  let api = new ChatGPTAPI({ sessionToken });
+  let api = new ChatGPTAPI({ 
+        sessionToken : process.env.SESSION_TOKEN,
+        clearanceToken : process.env.CLEARANCE_TOKEN,
+        userAgent : '',
+   });
 
   await api.ensureAuth();
 

@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from 'dotenv-safe';
 import { Client, GatewayIntentBits, REST, Routes, Partials } from 'discord.js';
 import CHATGPT from './commands/chatgpt/chatgpt.js';
 
