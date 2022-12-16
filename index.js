@@ -1,4 +1,4 @@
-import dotenv from 'dotenv-safe';
+import dotenv from 'dotenv';
 import { Client, GatewayIntentBits, REST, Routes, Partials } from 'discord.js';
 import CHATGPT from './commands/chatgpt/chatgpt.js';
 
@@ -36,6 +36,7 @@ async function initDiscordCommands() {
 async function main() {
 
     await initDiscordCommands();
+    const api = await CHATGPT.setupOpenAISession();
 
     const client = new Client({
         intents: [
@@ -63,12 +64,13 @@ async function main() {
         if (!interaction.isCommand()) return;
 
         if (interaction.commandName === "chatgpt") {
+            
             const question = interaction.options.getString("question");
 
             interaction.reply({ content: "Je prépare ma réponse..." });
 
             try {
-                CHATGPT.askQuestion(question, (content) => {
+                CHATGPT.askQuestion(api, question, (content) => {
                     if(content.length >= MAX_RESPONSE_CHUNK_LENGTH){
                         interaction.editReply({ content:"Ceci devrait vous aider :" });
                         CHATGPT.splitAndSendResponse(content, interaction);
